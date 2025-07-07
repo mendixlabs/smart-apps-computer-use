@@ -29,7 +29,8 @@ Keep in mind: computer use is still in beta for most major LLM providers, includ
 1. Make sure to have a deployment for Anthropic Claude Sonnet 3.7 in Amazon Bedrock. Make note of the model ID, e.g. `us.anthropic.claude-3-7-sonnet-20250219-v1:0`, you need it later.
 1. Run the GenAI Showcase app, and [configure the connection to Amazon Bedrock](https://docs.mendix.com/appstore/modules/aws/amazon-bedrock/#configuration). Synchronize the models as necessary.
     If your model is using a [CRI profile](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html), you may need to add the model manually to the list of models in the Mendix App. Use the model ID from the earlier step.
-1. Optionally, verify in a simple chat completions showcase that the model works for simple text generation calls. 
+1. Set the *model name* field to `Anthropic Claude 3.7 Sonnet`.
+1. Optionally, verify in a chat completions showcase that the model works for simple text generation calls. 
 
 
 ## Modify the computer use image
@@ -66,7 +67,16 @@ Keep in mind: computer use is still in beta for most major LLM providers, includ
 
 # Technical considerations
 
-- When editing files and running on Windows (e.g. using VS Code) there might be issues in line feed encodings. Change the "End of Line Sequence" to LF using the setting at the bottom bar in VS Code, typically it says CTRL by default. This needs to be checked for the following files:
+- The Mendix app needs to run on a different port than the servers in the Anthropic computer use demo VM. The GenAI Showcase typically runs on 8080, so either change the GenAI Showcase app, or change the 8080 of the anthropic http_server.py (in our setup this http_server is not strictly needed anyway so it can also be removed from entrypoint.sh) and update the ports list in the docker run command accordingly.
+- The streamlit chat UI in the anthropic demo image is present by default at port `8501`, but not strictly needed or used for our setup. 
+- The VM interface runs on port `6080` by default. This can be used to see what the model is executing: the virtual desktop can be shown in the browser via [http://127.0.0.1:6080/vnc.html?&resize=scale&autoconnect=1&view_only=1&reconnect=1&reconnect_delay=2000](http://127.0.0.1:6080/vnc.html?&resize=scale&autoconnect=1&view_only=1&reconnect=1&reconnect_delay=2000) which also takes care of reconnecting and refreshing automatically.
+- The server from `my_server.py` runs on port `8081` by default. If the Docker image is so that this server runs on a different port, the constant in the ComputerUse_AmazonBedrock showcase module called `ServerEndpoint` needs to be changed accordingly in Studio Pro.
+- If using Mac with Parallels: the Docker container (and hence http servers) typically runs on Mac and the Mendix app runs in Parallels. When port forwarding cannot be used, the constant in the ComputerUse_AmazonBedrock  module called `ServerEndpoint` needs to be changed in Studio Pro: replace `http://localhost:8081` with `http://[your IP address]:8081` (see wifi settings or use the IPv4 value from whatismyip.com to get your IP address).
+- The computer use version is by default set to `computer_20250124` in both the Mendix showcase (action microflow `ChatContext_ChatWithHistory_ActionMicroflow_ComputerUse`) and `my_server.py` when filtering the `tool_group`. If a different version (at the time of writing `computer_use_20241022` is an alternative) is required, it needs to be changed on both sides.
+
+# Troubleshooting
+
+- Executing the `docker run` command runs into the following error `./entrypoint.sh: ./start_all.sh: /bin/bash^M: bad interpreter: No such file or directory`. This is most likely due to using Windows apps for editing files and running causing specific behavior in line feed encodings. As a solution: change the "End of Line Sequence" to **LF** using the setting at the bottom bar in VS Code, typically it says **CTRL** by default. This needs to be changed to **LF** for at least the following files:
   - Dockerfile
   - image/entrypoint.sh
   - image/mutter_startup.sh
@@ -79,14 +89,4 @@ Keep in mind: computer use is still in beta for most major LLM providers, includ
   - image/.config/tint2/applications/firefox-custom.desktop
   - image/.config/tint2/applications/gedit.desktop
   - image/.config/tint2/applications/terminal.desktop
-- The Mendix app needs to run on a different port than the servers in the Anthropic computer use demo VM. The GenAI Showcase typically runs on 8080, so either change the GenAI Showcase app, or change the 8080 of the anthropic http_server.py (in our setup this http_server is not strictly needed anyway so it can also be removed from entrypoint.sh) and update the ports list in the docker run command accordingly.
-- The streamlit chat UI in the anthropic demo image is present by default at port `8501`, but not strictly needed or used for our setup. 
-- The VM interface runs on port `6080` by default. This can be used to see what the model is executing: the virtual desktop can be shown in the browser via [http://127.0.0.1:6080/vnc.html?&resize=scale&autoconnect=1&view_only=1&reconnect=1&reconnect_delay=2000](http://127.0.0.1:6080/vnc.html?&resize=scale&autoconnect=1&view_only=1&reconnect=1&reconnect_delay=2000) which also takes care of reconnecting and refreshing automatically.
-- The server from `my_server.py` runs on port `8081` by default. If the Docker image is so that this server runs on a different port, the constant in the ComputerUse_AmazonBedrock showcase module called `ServerEndpoint` needs to be changed accordingly in Studio Pro.
-- If using Mac with Parallels: the Docker container (and hence http servers) typically runs on Mac and the Mendix app runs in Parallels. When port forwarding cannot be used, the constant in the ComputerUse_AmazonBedrock  module called `ServerEndpoint` needs to be changed in Studio Pro: replace `http://localhost:8081` with `http://[your IP address]:8081` (see wifi settings or use the IPv4 value from whatismyip.com to get your IP address).
-- The computer use version is by default set to `computer_20250124` in both the Mendix showcase (action microflow `ChatContext_ChatWithHistory_ActionMicroflow_ComputerUse`) and `my_server.py` when filtering the `tool_group`. If a different version (at the time of writing `computer_use_20241022` is an alternative) is required, it needs to be changed on both sides.
-- In some cases for text typing actions, we experienced incorrect screenshot behavior. A workaround for this issue could be to add a line `await asyncio.sleep(0.5)` to script `computer.py` after line 172 (in the "key" action before taking the screenshot). Do not forget to build the Docker image again and run it.
-
-# Troubleshooting
-
-- Executing the `docker run` command runs into the following error `./entrypoint.sh: ./start_all.sh: /bin/bash^M: bad interpreter: No such file or directory`. This is most likely due to line endings on Windows. See **Technical considerations** (first item).
+- The model is unable to type properly in text fields. This is most likely due to screenshot behavior in the virtual computer. As a workaround for this issue, locate script `computer.py` and add a line `await asyncio.sleep(0.5)` after line 172 (in the "key" action before taking the screenshot). Do not forget to build the Docker image again and run it.
