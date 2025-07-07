@@ -2,7 +2,7 @@
 
 
 ## Introduction
-This repository is meant to support the GenAI pattern of the computer use in a Mendix app. An example setup was described in this blog post (link TBA). 
+This repository is meant to support the GenAI pattern of the computer use in a Mendix app. An example setup was described in the blog post about Computer Use in a Mendix App (link TBA).
 The steps in this README describe how to recreate the setup.
 
 The setup displayed in the blogpost consists of the following parts:
@@ -58,6 +58,7 @@ Keep in mind: computer use is still in beta for most major LLM providers, includ
 1. In the chat box, enter an instruction, e.g. *open a web browser, please*.
 1. Watch the computer use agent interact with the virtual desktop.
 1. Track the tool calls in the console log.
+
 
 
 ## Read more
