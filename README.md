@@ -41,7 +41,8 @@ Keep in mind: computer use is still in beta for most major LLM providers, includ
 ## Build and run the computer use image as Docker Container
 
 
-1. Make sure [Docker desktop](https://docs.docker.com/get-started/introduction/get-docker-desktop/) is installed on your machine and check that it is running. 
+1. Make sure [Docker desktop](https://docs.docker.com/get-started/introduction/get-docker-desktop/) is installed on your machine and check that it is running.
+1. Using the command line tool, navigate to the right directory `C:\my-computer-use\anthropic-quickstarts\computer-use-demo\`
 1. Build the image using the following command:\
 `docker build -t claude-computer-use-demo .`
 1. Run a container using the following command:\
