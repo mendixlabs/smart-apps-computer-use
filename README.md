@@ -21,7 +21,7 @@ Keep in mind: computer use is still in beta for most major LLM providers, includ
 
 1. Clone the current repository in a folder on your file system.
 1. Clone the [Anthropic Quickstarts repository](https://github.com/anthropics/anthropic-quickstarts) into a dedicated folder on your file system, e.g. `C:\my-computer-use\`. A folder `anthropic-quickstarts` will be created, and it will contain a `computer-use demo`, that is located in a location such as: `C:\my-computer-use\anthropic-quickstarts\computer-use-demo\`
-1. Take the most recent version of the [GenAI Showcase app](https://marketplace.mendix.com/link/component/220475) and make sure the `ComputerUse_AmazonBedrock` showcase module is present. 
+1. Take the most recent version of the [GenAI Showcase app](https://marketplace.mendix.com/link/component/220475) and make sure the `ComputerUse_AmazonBedrock` showcase module is present. Change the [runtime and admin ports](https://docs.mendix.com/refguide/configuration/) to 8082/8092. See notes under **Technical considerations** for more information about the different ports.
 
 
 ## Configure the LLM
@@ -89,4 +89,4 @@ Keep in mind: computer use is still in beta for most major LLM providers, includ
 
 # Troubleshooting
 
-- Executing the `docker run` command runs into the following error `./entrypoint.sh: ./start_all.sh: /bin/bash^M: bad interpreter: No such file or directory`. This is most likely due to line endings on Windows. See Technical considerations (first item).
+- Executing the `docker run` command runs into the following error `./entrypoint.sh: ./start_all.sh: /bin/bash^M: bad interpreter: No such file or directory`. This is most likely due to line endings on Windows. See **Technical considerations** (first item).
