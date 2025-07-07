@@ -87,3 +87,6 @@ Keep in mind: computer use is still in beta for most major LLM providers, includ
 - The computer use version is by default set to `computer_20250124` in both the Mendix showcase (action microflow `ChatContext_ChatWithHistory_ActionMicroflow_ComputerUse`) and `my_server.py` when filtering the `tool_group`. If a different version (at the time of writing `computer_use_20241022` is an alternative) is required, it needs to be changed on both sides.
 - In some cases for text typing actions, we experienced incorrect screenshot behavior. A workaround for this issue could be to add a line `await asyncio.sleep(0.5)` to script `computer.py` after line 172 (in the "key" action before taking the screenshot). Do not forget to build the Docker image again and run it.
 
+# Troubleshooting
+
+- Executing the `docker run` command runs into the following error `./entrypoint.sh: ./start_all.sh: /bin/bash^M: bad interpreter: No such file or directory`. This is most likely due to line endings on Windows. See Technical considerations (first item).
