@@ -94,4 +94,4 @@ Keep in mind: computer use is still in beta for most major LLM providers, includ
       - image/.config/tint2/applications/terminal.desktop
 - The computer use agent seems unable to type properly in text fields.
     - This is most likely due to screenshot behavior in the virtual computer.
-    - As a workaround for this issue, locate script `computer.py` and add a line `await asyncio.sleep(0.5)` after line 172 (in the "key" action before taking the screenshot). Do not forget to build the Docker image again and run it.
+    - As a workaround for this issue, locate script `C:\my-computer-use\anthropic-quickstarts\computer-use-demo\computer_use_demo\tools\computer.py`. Edit the file: add a line `await asyncio.sleep(0.5)` after line 172 (in the "type" action, just before taking the base64 screenshot). Do not forget to build the Docker image again and run it.
