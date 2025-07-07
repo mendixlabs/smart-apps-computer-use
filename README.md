@@ -76,17 +76,21 @@ Keep in mind: computer use is still in beta for most major LLM providers, includ
 
 # Troubleshooting
 
-- Executing the `docker run` command runs into the following error `./entrypoint.sh: ./start_all.sh: /bin/bash^M: bad interpreter: No such file or directory`. This is most likely due to using Windows apps for editing files and running causing specific behavior in line feed encodings. As a solution: change the "End of Line Sequence" to **LF** using the setting at the bottom bar in VS Code, typically it says **CTRL** by default. This needs to be changed to **LF** for at least the following files:
-  - Dockerfile
-  - image/entrypoint.sh
-  - image/mutter_startup.sh
-  - image/novnc_startup.sh
-  - image.start_all.sh
-  - image/tint2_startup.sh
-  - image/x11vnc_startup.sh
-  - image/xvfb_startup.sh
-  - image/.config/tint2/tin2rc
-  - image/.config/tint2/applications/firefox-custom.desktop
-  - image/.config/tint2/applications/gedit.desktop
-  - image/.config/tint2/applications/terminal.desktop
-- The model is unable to type properly in text fields. This is most likely due to screenshot behavior in the virtual computer. As a workaround for this issue, locate script `computer.py` and add a line `await asyncio.sleep(0.5)` after line 172 (in the "key" action before taking the screenshot). Do not forget to build the Docker image again and run it.
+- Executing the `docker run` command runs into an error similar to the following: `./entrypoint.sh: ./start_all.sh: /bin/bash^M: bad interpreter: No such file or directory`.
+    - This is most likely due to using Windows apps for editing files and running causing specific behavior in line feed encodings.
+    - As a solution: change the "End of Line Sequence" to **LF** using the setting at the bottom bar in VS Code, typically it says **CTRL** by default. This needs to be changed to **LF** for at least the following files:
+      - Dockerfile
+      - image/entrypoint.sh
+      - image/mutter_startup.sh
+      - image/novnc_startup.sh
+      - image.start_all.sh
+      - image/tint2_startup.sh
+      - image/x11vnc_startup.sh
+      - image/xvfb_startup.sh
+      - image/.config/tint2/tin2rc
+      - image/.config/tint2/applications/firefox-custom.desktop
+      - image/.config/tint2/applications/gedit.desktop
+      - image/.config/tint2/applications/terminal.desktop
+- The computer use agent seems unable to type properly in text fields.
+    - This is most likely due to screenshot behavior in the virtual computer.
+    - As a workaround for this issue, locate script `computer.py` and add a line `await asyncio.sleep(0.5)` after line 172 (in the "key" action before taking the screenshot). Do not forget to build the Docker image again and run it.
