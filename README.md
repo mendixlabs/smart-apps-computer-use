@@ -68,6 +68,7 @@ You can ignore the instructions in the terminal to open http://localhost:8082 in
 
 # Technical considerations
 
+- Computer Use is still in beta for most major LLM providers, including [OpenAI](https://platform.openai.com/docs/guides/tools-computer-use) and [Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/computer-use.html), so things are changing fast. The behavior and reliability of your computer use agent can vary a lot depending on the exact use case and prompting.
 - The Mendix app needs to run on a different port than the servers in the Anthropic computer use demo VM. The GenAI Showcase typically runs on 8080, so either change the GenAI Showcase app, or change the 8080 of the anthropic http_server.py (in our setup this http_server is not strictly needed anyway so it can also be removed from entrypoint.sh) and update the ports list in the docker run command accordingly.
 - The streamlit chat UI in the anthropic demo image is present by default at port `8501`, but not strictly needed or used for our setup. 
 - The VM interface runs on port `6080` by default. This can be used to see what the model is executing: the virtual desktop can be shown in the browser via [http://127.0.0.1:6080/vnc.html?&resize=scale&autoconnect=1&view_only=1&reconnect=1&reconnect_delay=2000](http://127.0.0.1:6080/vnc.html?&resize=scale&autoconnect=1&view_only=1&reconnect=1&reconnect_delay=2000) which also takes care of reconnecting and refreshing automatically.
@@ -97,3 +98,7 @@ You can ignore the instructions in the terminal to open http://localhost:8082 in
     - This is most likely due to screenshot behavior in the virtual computer.
     - As a workaround for this issue, locate script `C:\my-computer-use\anthropic-quickstarts\computer-use-demo\computer_use_demo\tools\computer.py`. Edit the file: add a line `await asyncio.sleep(0.5)` after line 172 (in the "type" action, just before taking the base64 screenshot). Do not forget to build the Docker image again and run it.
 - Executing the `docker build` command runs into an error similar to the following: `"docker buildx build" requires exactly 1 argument.` Make sure to copy the whole command, including the dot at the end.`docker build -t claude-computer-use-demo .`
+
+# Contact Us
+
+For questions, feel free to reach out via email [genai-components-feedback@mendix.com](mailto:genai-components-feedback@mendix.com) or [Community Slack](https://mendixcommunity.slack.com/archives/C07P8NRBLN9).
