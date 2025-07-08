@@ -44,7 +44,7 @@ Keep in mind: computer use is still in beta for most major LLM providers, includ
 1. Make sure [Docker desktop](https://docs.docker.com/get-started/introduction/get-docker-desktop/) is installed on your machine and check that it is running.
 1. Using the command line tool, navigate to the right directory `C:\my-computer-use\anthropic-quickstarts\computer-use-demo\`
 1. Build the image using the following command:\
-`docker build -t claude-computer-use-demo .`
+`docker build -t claude-computer-use-demo .` Make sure to copy the whole command, including the dot at the end.
 1. Run a container using the following command:\
 `docker run --env-file .env -p 5900:5900 -p 8501:8501 -p 6080:6080 -p 8080:8080 -p 8081:8081 -it claude-computer-use-demo`
 You can ignore the instructions in the terminal to open http://localhost:8082 in your browser to begin, because we will see the VM inside the running GenAI Showcase app.
