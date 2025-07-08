@@ -35,7 +35,7 @@ Keep in mind: computer use is still in beta for most major LLM providers, includ
 
 ## Modify the computer use image
 
-1. Take `my_server.py` from this repository and add it to your local copy of the Anthropic anthropic claude code base folder, so that it is located at `C:\my-computer-use\anthropic-quickstarts\computer-use-demo\computer_use_demo\my_server.py`
+1. Take `my_server.py` from this repository and add it to your local copy of the Anthropic claude code base folder, so that it is located at `C:\my-computer-use\anthropic-quickstarts\computer-use-demo\computer_use_demo\my_server.py`
 1. In the `computer-use-demo\image\` folder, modify the `entrypoint.sh` file to also start my_server by adding the following line above the streamlit startup command: `python computer_use_demo/my_server.py > /tmp/my_server_logs.txt 2>&1 &`
 
 
