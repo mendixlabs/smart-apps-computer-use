@@ -77,7 +77,7 @@ You can ignore the instructions in the terminal to open http://localhost:8082 in
 
 # Troubleshooting
 
-- Executing the `docker run` command runs into an error similar to the following: `./entrypoint.sh: ./start_all.sh: /bin/bash^M: bad interpreter: No such file or directory`.
+- Executing the `docker run` command runs into an error similar to the following: `exec ./entrypoint.sh: no such file or directory` or `./entrypoint.sh: ./start_all.sh: /bin/bash^M: bad interpreter: No such file or directory`.
     - This is most likely due to using Windows apps for editing files and running causing specific behavior in line feed encodings.
     - As a solution: change the "End of Line Sequence" to **LF** using the setting at the bottom bar in VS Code, typically it says **CTRL** by default. This needs to be changed to **LF** for at least the following files:
       - Dockerfile
