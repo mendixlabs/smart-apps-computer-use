@@ -2,10 +2,10 @@
 
 
 ## Introduction
-This repository is meant to support the GenAI pattern of the computer use in a Mendix app. An example setup was described in the blog post about Computer Use in a Mendix App (link TBA).
+This repository is meant to support the GenAI pattern of the computer use in a Mendix app. An example setup was described in the [blog post](https://www.mendix.com/blog/control-a-virtual-computer-from-your-mendix-app-using-gen-ai/) about Computer Use in a Mendix App.
 The steps in this README describe how to recreate the setup.
 
-The setup displayed in the blogpost consists of the following parts:
+The setup displayed in the blog post consists of the following parts:
 
 - A Mendix app with the newest versions of these modules: GenAI Commons, Bedrock Connector, Conversational UI. We use the [GenAI Showcase App](https://marketplace.mendix.com/link/component/220475) from the Mendix Marketplace for our setup.
 - A page and microflow logic to invoke the computer use LLM and execute tools. In the GenAI Showcase app, look for ComputerUse_AmazonBedrock to see the microflows used in the blog post example.
@@ -62,7 +62,7 @@ Keep in mind: computer use is still in beta for most major LLM providers, includ
 
 
 # Read more
-- blogpost link TBA
+- [Mendix Blog post about Computer Use](https://www.mendix.com/blog/control-a-virtual-computer-from-your-mendix-app-using-gen-ai/)
 
 
 
