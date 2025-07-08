@@ -47,8 +47,10 @@ Keep in mind: computer use is still in beta for most major LLM providers, includ
 `docker build -t claude-computer-use-demo .` Make sure to copy the whole command, including the dot at the end.
 1. Run a container using the following command:\
 `docker run -p 5900:5900 -p 8501:8501 -p 6080:6080 -p 8080:8080 -p 8081:8081 -it claude-computer-use-demo`
+
 You can ignore the instructions in the terminal to open http://localhost:8082 in your browser to begin, because we will see the VM inside the running GenAI Showcase app.
 
+Make sure to check the troubleshooting section if any command runs into errors.
 
 
 ## Try it out!
