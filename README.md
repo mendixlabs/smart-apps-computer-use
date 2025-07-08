@@ -95,3 +95,4 @@ You can ignore the instructions in the terminal to open http://localhost:8082 in
 - The computer use agent seems unable to type properly in text fields.
     - This is most likely due to screenshot behavior in the virtual computer.
     - As a workaround for this issue, locate script `C:\my-computer-use\anthropic-quickstarts\computer-use-demo\computer_use_demo\tools\computer.py`. Edit the file: add a line `await asyncio.sleep(0.5)` after line 172 (in the "type" action, just before taking the base64 screenshot). Do not forget to build the Docker image again and run it.
+- Executing the `docker build` command runs into an error similar to the following: `"docker buildx build" requires exactly 1 argument.` Make sure to copy the whole command, including the dot at the end.`docker build -t claude-computer-use-demo .`
