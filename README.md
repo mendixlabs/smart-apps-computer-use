@@ -7,9 +7,9 @@ The steps in this README describe how to recreate the setup.
 
 The setup displayed in the blog post consists of the following parts:
 
-- A Mendix app with the newest versions of these modules: GenAI Commons, Bedrock Connector, Conversational UI. We use the [GenAI Showcase App](https://marketplace.mendix.com/link/component/220475) from the Mendix Marketplace for our setup.
+- A Mendix app with the newest versions of these modules: GenAI Commons, Amazon Bedrock Connector, Conversational UI. We use the [GenAI Showcase App](https://marketplace.mendix.com/link/component/220475) from the Mendix Marketplace for our setup.
 - A page and microflow logic to invoke the computer use LLM and execute tools. In the GenAI Showcase app, look for ComputerUse_AmazonBedrock to see the microflows used in the blog post example.
-- A Docker image for a VM container including a virtual desktop. We used the [Anthropic Quickstarts repository](https://github.com/anthropics/anthropic-quickstarts) as a basis.
+- A Docker image for a VM (virtual machine) container including a virtual desktop. We used the [Anthropic Quickstarts repository](https://github.com/anthropics/anthropic-quickstarts) as a basis.
 - A http server that runs inside of the Docker container so that the Mendix app can call it. To get the example from the blog post, we added the python scripts from this current repository to the Docker image.
 
 Keep in mind: computer use is still in beta for most major LLM providers, including [OpenAI](https://platform.openai.com/docs/guides/tools-computer-use) and [Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/computer-use.html), so things are changing fast. 
@@ -41,13 +41,13 @@ Keep in mind: computer use is still in beta for most major LLM providers, includ
 
 ## Build and run the computer use image as Docker Container
 
-
 1. Make sure [Docker desktop](https://docs.docker.com/get-started/introduction/get-docker-desktop/) is installed on your machine and check that it is running.
 1. Using the command line tool, navigate to the right directory `C:\my-computer-use\anthropic-quickstarts\computer-use-demo\`
 1. Build the image using the following command:\
 `docker build -t claude-computer-use-demo .`
 1. Run a container using the following command:\
 `docker run --env-file .env -p 5900:5900 -p 8501:8501 -p 6080:6080 -p 8080:8080 -p 8081:8081 -it claude-computer-use-demo`
+You can ignore the instructions in the terminal to open http://localhost:8082 in your browser to begin, because we will see the VM inside the running GenAI Showcase app.
 
 
 
@@ -71,8 +71,8 @@ Keep in mind: computer use is still in beta for most major LLM providers, includ
 - The Mendix app needs to run on a different port than the servers in the Anthropic computer use demo VM. The GenAI Showcase typically runs on 8080, so either change the GenAI Showcase app, or change the 8080 of the anthropic http_server.py (in our setup this http_server is not strictly needed anyway so it can also be removed from entrypoint.sh) and update the ports list in the docker run command accordingly.
 - The streamlit chat UI in the anthropic demo image is present by default at port `8501`, but not strictly needed or used for our setup. 
 - The VM interface runs on port `6080` by default. This can be used to see what the model is executing: the virtual desktop can be shown in the browser via [http://127.0.0.1:6080/vnc.html?&resize=scale&autoconnect=1&view_only=1&reconnect=1&reconnect_delay=2000](http://127.0.0.1:6080/vnc.html?&resize=scale&autoconnect=1&view_only=1&reconnect=1&reconnect_delay=2000) which also takes care of reconnecting and refreshing automatically.
-- The server from `my_server.py` runs on port `8081` by default. If the Docker image is so that this server runs on a different port, the constant in the ComputerUse_AmazonBedrock showcase module called `ServerEndpoint` needs to be changed accordingly in Studio Pro.
-- If using Mac with Parallels: the Docker container (and hence http servers) typically runs on Mac and the Mendix app runs in Parallels. When port forwarding cannot be used, the constant in the ComputerUse_AmazonBedrock  module called `ServerEndpoint` needs to be changed in Studio Pro: replace `http://localhost:8081` with `http://[your IP address]:8081` (see wifi settings or use the IPv4 value from whatismyip.com to get your IP address).
+- If using Mac with Parallels: the Docker container (and hence http servers) typically runs on Mac and the Mendix app runs in Parallels. When port forwarding cannot be used, the constant in the ComputerUse_AmazonBedrock  module called `LocalhostIPAddress` needs to be changed in Studio Pro: replace `127.0.0.1` which is the default localhost IP address with your IP address. You can find this in your wifi settings or use the IPv4 value from whatismyip.com to get your IP address.
+- The server from `my_server.py` runs on port `8081` by default. If the Docker image is so that this server runs on a different port, you can change the location in the Call REST (POST) operation in the ComputerUseTool microflow in the ComputerUse_AmazonBedrock showcase module in Studio Pro.
 - The computer use version is by default set to `computer_20250124` in both the Mendix showcase (action microflow `ChatContext_ChatWithHistory_ActionMicroflow_ComputerUse`) and `my_server.py` when filtering the `tool_group`. If a different version (at the time of writing `computer_use_20241022` is an alternative) is required, it needs to be changed on both sides.
 
 # Troubleshooting
