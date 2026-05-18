@@ -9,7 +9,7 @@ The setup displayed in the blog post consists of the following parts:
 
 - A Mendix app with the newest versions of these modules: GenAI Commons, Amazon Bedrock Connector, Conversational UI. We use the [GenAI Showcase App](https://marketplace.mendix.com/link/component/220475) from the Mendix Marketplace for our setup.
 - A page and microflow logic to invoke the computer use LLM and execute tools. In the GenAI Showcase app, look for ComputerUse_AmazonBedrock to see the microflows used in the blog post example.
-- A Docker image for a VM (virtual machine) container including a virtual desktop. We used the [Anthropic Quickstarts repository](https://github.com/anthropics/anthropic-quickstarts) as a basis.
+- A Docker image for a VM (virtual machine) container including a virtual desktop. We used the [Claude Quickstarts repository](https://github.com/anthropics/claude-quickstarts) as a basis.
 - A http server that runs inside of the Docker container so that the Mendix app can call it. To get the example from the blog post, we added the python scripts from this current repository to the Docker image.
 
 Keep in mind: computer use is still in beta for most major LLM providers, including [OpenAI](https://platform.openai.com/docs/guides/tools-computer-use) and [Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/computer-use.html), so things are changing fast. 
